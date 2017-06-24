@@ -1,0 +1,116 @@
+{
+  "name": "nodejs-services",
+  "version": "1.0.0",
+  "description": "A Boilerplate application for building REST APIs using express, mongoose in ES6 with code coverage",
+  "main": "index.js",
+  "private": false,
+  "scripts": {
+    "start": "gulp serve",
+    "build": "gulp",
+    "lint": "esw *.js server config --color",
+    "lint:watch": "npm run lint -- --watch",
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --ui bdd --reporter nyan --colors --compilers js:babel-core/register $(find src -name '*.test.js') --recursive",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "cross-env NODE_ENV=test ./node_modules/.bin/istanbul cover _mocha -- --ui bdd --reporter spec --colors --compilers js:babel-core/register server/tests/utils.js $(find server -name '*.test.js') --recursive",
+    "test:check-coverage": "npm run test:coverage && istanbul check-coverage",
+    "report-coverage": "coveralls < ./coverage/lcov.info",
+    "heroku-prebuild": "NODE_ENV=development npm run install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:elifTech/nodejs-services.git"
+  },
+  "keywords": [],
+  "dependencies": {
+    "amqp": "^0.2.6",
+    "array-unique": "^0.3.2",
+    "async": "^2.3.0",
+    "babel-polyfill": "6.23.0",
+    "bluebird": "3.4.6",
+    "body-parser": "1.15.2",
+    "compression": "1.6.2",
+    "cookie-parser": "1.4.3",
+    "cors": "2.8.1",
+    "cssmin": "^0.4.3",
+    "debug": "^2.4.5",
+    "deepmerge": "^1.3.2",
+    "express": "4.14.0",
+    "express-jwt": "5.1.0",
+    "express-validation": "1.0.1",
+    "express-winston": "2.1.2",
+    "fflip": "^4.0.0",
+    "fflip-express": "^1.0.2",
+    "handlebars": "^4.0.6",
+    "helmet": "3.1.0",
+    "html-minifier": "^3.4.2",
+    "http-status": "^0.2.0",
+    "joi": "10.0.6",
+    "jsonwebtoken": "7.1.9",
+    "juice": "^4.0.2",
+    "lodash": "^4.17.4",
+    "method-override": "^2.3.5",
+    "mongoose": "4.7.4",
+    "morgan": "1.7.0",
+    "nodemailer": "^3.1.8",
+    "pwd": "^1.1.0",
+    "socket.io": "^1.7.3",
+    "stompit": "^0.25.0",
+    "swagger-jsdoc": "1.3.0",
+    "swagger-ui-express": "latest",
+    "twig": "^0.10.3",
+    "winston": "2.3.0"
+  },
+  "devDependencies": {
+    "babel-cli": "6.18.0",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.2",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "chai": "^3.4.1",
+    "commitizen": "^2.9.2",
+    "coveralls": "^2.11.6",
+    "cross-env": "3.1.3",
+    "cz-conventional-changelog": "1.2.0",
+    "del": "^2.2.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb-base": "7.1.0",
+    "eslint-plugin-import": "1.16.0",
+    "eslint-watch": "2.1.14",
+    "ghooks": "^1.2.4",
+    "gulp": "3.9.1",
+    "gulp-babel": "6.1.2",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-newer": "^1.1.0",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "isparta": "^4.0.0",
+    "istanbul": "1.1.0-alpha.1",
+    "mocha": "^3.2.0",
+    "run-sequence": "^1.1.5",
+    "sinon": "^2.1.0",
+    "supertest": "2.0.1",
+    "supertest-as-promised": "4.0.2",
+    "validate-commit-msg": "^2.6.1"
+  },
+  "license": "MIT",
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run lint && npm run test"
+    },
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-2"
+    ],
+    "plugins": [
+      "add-module-exports"
+    ]
+  }
+}
