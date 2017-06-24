@@ -1,6 +1,4 @@
-# Express & mongoose REST API Boilerplate in ES6 with Code Coverage [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
-
-[![Build Status](https://travis-ci.com/elifTech/nodejs-boilerplate.svg?token=AcsTFx5TZNCpv2tdf53z&branch=master)](https://travis-ci.com/elifTech/nodejs-boilerplate)
+# Eliftech Services
 
 ## Overview
 
@@ -32,7 +30,7 @@ Heavily inspired from [Egghead.io - How to Write an Open Source JavaScript Libra
 
 Clone the repo:
 ```sh
-git clone https://github.com/elifTech/nodejs-boilerplate.git
+git clone https://github.com/elifTech/nodejs-.git
 cd nodejs-boilerplate
 ```
 

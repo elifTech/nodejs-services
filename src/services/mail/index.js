@@ -9,6 +9,7 @@ import cssmin from 'cssmin';
 import juice from 'juice';
 import handlebars from 'handlebars';
 import 'babel-polyfill';
+import ConfigService from '../config';
 
 const htmlMinOpts = {
   collapseBooleanAttributes: true,
@@ -29,7 +30,7 @@ class MailService {
 
   constructor(options = {}) {
     this.options = options || {};
-    this.options.pluginsPath = this.options.pluginsPath || path.join(__dirname, '..', '..', 'plugins', 'mail');
+    this.options.pluginsPath = this.options.pluginsPath || ConfigService.getPluginsDirFor('mail');
 
     this.controllers = {};
 

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import Account from '../../../models/accounts';
+import Account from '../../../models/accounts.test';
 import postHandler from './post';
 
 describe('## ResourceService postHandler', () => {

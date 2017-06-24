@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import socketIO from 'socket.io';
 import winston from 'winston';
 
-import Account from '../../models/accounts';
+import ConfigService from '../config';
 import MqService from '../mq';
 
 export default
@@ -95,31 +95,13 @@ class SocketService {
       return next(null, new Error('unauthorized'));
     }
 
-    const accountQuery = { _id: payload._id, removed: { $exists: false } };
-    return Account.findOne(accountQuery, 'username activityDate', (err, account) => {
+    return ConfigService.getAccountById(payload._id, (err, account) => {
       if (err) {
         return next(err);
       }
-      if (!account) {
-        this.log('Unauthorized socket connection (invalid token)');
-        return next(null, new Error('unauthorized'));
-      }
-
-      socket.account = account.toObject(); // eslint-disable-line no-param-reassign
-
-      if (!account.activityDate || Date.now() - account.activityDate.getTime() > 5 * 60 * 1000) {
-        this.log(`Updating activity date ${account.username}`);
-
-        account.update({ activityDate: Date.now() }, (error) => {
-          if (error) {
-            winston.error(error);
-          }
-        });
-      }
-
-      this.addSocket(socket);
+      socket.account = account; // eslint-disable-line no-param-reassign
       socket.on('disconnect', () => this.removeSocket(socket));
-
+      this.addSocket(socket);
       return next();
     });
   }

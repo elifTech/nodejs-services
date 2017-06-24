@@ -6,7 +6,10 @@ export default
 function getHandler(service, model, fields, schemaFields, req, res, cb) {
   res.set('x-service', 'resources');
 
+  fields = _.map(fields, field => field.replace('.*', '')); // eslint-disable-line no-param-reassign
+
   const zipFields = _.mapValues(_.zipObject(fields), _.constant(1));
+
   if (req.params._id || req.query.alias) {
     if (req.params._id) {
       req.query._id = req.params._id; // eslint-disable-line no-param-reassign
@@ -46,14 +49,14 @@ function getHandler(service, model, fields, schemaFields, req, res, cb) {
       items: ['filter', 'dataOptions', ({ filter, dataOptions }, next) => {
         model.find(filter, zipFields, dataOptions, next);
       }]
-    }, (err, data) => {
+    }, (err, { count, items }) => {
       if (err) {
         return cb(err);
       }
-      if (data.count !== -1) {
-        res.set('x-total-count', data.count);
+      if (count !== -1) {
+        res.set('x-total-count', count);
       }
-      return res.json(data.items);
+      return res.json(items);
     });
   }
 }
@@ -68,7 +71,7 @@ function getDataOptions(req, next) {
     if (!(perPage && perPage <= maxPerPage)) {
       return next('Missing "perPage" query param');
     }
-    opts.limit = perPage;
+    opts.limit = parseInt(perPage); // eslint-disable-line
 
     if (!page) {
       return next('Missing "page" query param');
@@ -76,7 +79,7 @@ function getDataOptions(req, next) {
     opts.skip = page ? (page - 1) * opts.limit : 0;
   } else if (perPage) {
     opts.skip = page ? (page - 1) * perPage : 0;
-    opts.limit = perPage;
+    opts.limit = parseInt(perPage); // eslint-disable-line
   }
 
   // Parse request sorting parameters

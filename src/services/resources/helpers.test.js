@@ -27,11 +27,11 @@ describe('## ResourceService helpers', () => {
     });
     const schema = mongoose.Schema({ // eslint-disable-line new-cap
       x: String,
-      y: { a: String, z: String },
+      y: { a: String, z: String, t: { y: String } },
       embed: { type: embedSchema }
     });
     const fields = getMongooseFields(schema);
-    expect(fields).to.deep.equal(['x', 'y.a', 'y.z', 'embed.a', 'embed.b', '_id']);
+    expect(fields).to.deep.equal(['x', 'y.a', 'y.z', 'y.t.y', 'embed.a', 'embed.b', '_id']);
   });
 
   it('should getMongooseFields return schema fields list with array', () => {

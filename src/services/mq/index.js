@@ -64,7 +64,7 @@ class MqService {
         });
       },
       queue: ['connection', ({ connection }, next) => {
-        this.queue = connection.queue(this.destination, { durable: false, autoDelete: false }, next);
+        this.queue = connection.queue(this.destination, { durable: true, autoDelete: false }, next);
       }],
       exchange: ['connection', ({ connection }, next) => {
         this.exchange = connection.exchange('', {}, next);

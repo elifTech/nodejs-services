@@ -3,6 +3,7 @@ import async from 'async';
 import path from 'path';
 import winston from 'winston';
 import MqService from '../mq';
+import ConfigService from '../config';
 
 export default
 class TasksService {
@@ -11,7 +12,7 @@ class TasksService {
     this.app = app;
     this.plugins = {};
     this.options = options || {};
-    this.options.pluginsPath = this.options.pluginsPath || path.join(__dirname, '..', '..', 'plugins', 'tasks');
+    this.options.pluginsPath = this.options.pluginsPath || ConfigService.getPluginsDirFor('tasks');
 
     this.mqService = new MqService({ destination: `${this.id}` });
   }

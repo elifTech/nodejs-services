@@ -1,12 +1,16 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import path from 'path';
-import ResourceService from './index';
+import ResourceService from './ResourceService';
+import ConfigService from '../config';
+import Account from '../../models/accounts.test';
 
 describe('## ResourceService', () => {
   const service = new ResourceService({
     pluginsPath: path.join(__dirname, 'tests')
   });
+
+  ConfigService.setModelGetter(() => Account);
 
   it('should be defined', () => {
     expect(service).to.be.an('object');

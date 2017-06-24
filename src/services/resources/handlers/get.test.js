@@ -26,7 +26,7 @@ describe('## ResourceService getHandler', () => {
       findOne: sinon.stub()
     };
 
-    getHandler(resourceService, model, ['_id', 'username'], schemaFields, req, res);
+    getHandler(resourceService, model, ['_id', 'username', 'content.*'], schemaFields, req, res);
 
     expect(model.findOne.called).to.be.true; // eslint-disable-line no-unused-expressions
 
@@ -36,7 +36,7 @@ describe('## ResourceService getHandler', () => {
         { removed: { $exists: false } }
       ]
     });
-    expect(model.findOne.getCall(0).args[1]).to.deep.equal({ _id: 1, username: 1 });
+    expect(model.findOne.getCall(0).args[1]).to.deep.equal({ _id: 1, username: 1, content: 1 });
 
     // set service flag
     expect(res.set.called).to.be.true; // eslint-disable-line no-unused-expressions
@@ -57,7 +57,7 @@ describe('## ResourceService getHandler', () => {
       find: sinon.stub()
     };
 
-    getHandler(resourceService, model, ['_id', 'username'], schemaFields, req, res);
+    getHandler(resourceService, model, ['_id', 'username', 'content.*'], schemaFields, req, res);
 
     expect(model.count.called).to.be.true; // eslint-disable-line no-unused-expressions
     expect(model.find.called).to.be.true; // eslint-disable-line no-unused-expressions
@@ -68,7 +68,7 @@ describe('## ResourceService getHandler', () => {
         { removed: { $exists: false } }
       ]
     });
-    expect(model.find.getCall(0).args[1]).to.deep.equal({ _id: 1, username: 1 });
+    expect(model.find.getCall(0).args[1]).to.deep.equal({ _id: 1, username: 1, content: 1 });
 
     expect(model.count.getCall(0).args[0]).to.deep.equal({
       $and: [
